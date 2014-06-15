@@ -36,8 +36,8 @@ public class BusRouteGen {
 			
 			String fromEdge = "131751221#0";
 			
-			String toEdge = "76817092#3";
-			
+			String toEdge = "118934456#1";
+				
 			//System.out.println(matrix.isConnected(fromEdge, toEdge));
 			
 //			System.out.println(matrix.getEdgesConnected(fromEdge).toString());
