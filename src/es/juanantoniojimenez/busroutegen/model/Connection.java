@@ -37,22 +37,49 @@ public class Connection {
 		NamedNodeMap attr = node.getAttributes();
 		
 		// Get the from-edgeID from the node 
-		String edgeIdAux = attr.item(1).toString().split("=")[1].split("\"")[1];
+		String edgeIdAux;
+		if(attr.item(1).toString().split("=")[0].equals("from")){
+			edgeIdAux = attr.item(1).toString().split("=")[1].split("\"")[1];
+		} else {
+			edgeIdAux = getAttr(attr, "from");
+		}
 		
 		// Creates a new Edge object to the "from" edge
 		this.from = new Edge(edgeIdAux, null, null);
 		
 		// Sets connection's id with edge names
-		this.id = edgeIdAux + "-";
+		this.id = edgeIdAux + "&-&";
 		
 		// Get the to-edgeID from the node
-		edgeIdAux = attr.item(4).toString().split("=")[1].split("\"")[1];
+		if(attr.item(4).toString().split("=")[0].equals("to")){
+			edgeIdAux = attr.item(4).toString().split("=")[1].split("\"")[1];
+		} else {
+			edgeIdAux = getAttr(attr, "to");
+		}
 		
 		// Creates a new Edge object to the "to" edge
 		this.to = new Edge(edgeIdAux, null, null);
 		
 		// Sets to the connection's id the edgeID
 		this.id += edgeIdAux;
+	}
+	
+	/**
+	 * 
+	 * @param attr
+	 * @param search
+	 * @return
+	 */
+	public String getAttr(NamedNodeMap attr, String search) {
+		String ret = null;
+		for(int i = 0; i < attr.getLength(); i++) {
+			String[] array = attr.item(i).toString().split("=");
+			if(array[0].equals(search)) {
+				ret = array[1].split("\"")[1];
+				break;
+			}
+		}
+		return ret;
 	}
 
 	/**
