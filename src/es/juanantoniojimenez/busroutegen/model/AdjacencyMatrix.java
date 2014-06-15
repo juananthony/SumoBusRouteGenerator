@@ -235,7 +235,7 @@ public class AdjacencyMatrix {
 					routeFind = true;
 					break;
 				}
-				if(!open.contains(auxM)) {
+				if(!existsInQueue(open,auxM)) {
 					LinkedEdge auxLinked = new LinkedEdge(auxM, m);
 					open.add(auxLinked);
 				}
@@ -245,13 +245,12 @@ public class AdjacencyMatrix {
 		
 		// Convert close list into return route
 		Stack<String> stack = new Stack<String>();
-		while(true){
-			int size = close.size() - 1;
-			
+		while(true) {			
 			if(m == null || m.id.equals(from)) {
 				break;
+			} if(!m.id.equals(to)) {
+				stack.push(m.id);
 			}
-			stack.push(m.id);
 			m = m.parent;
 		}
 		for(int i = 0; i < stack.size(); i++) {
@@ -261,4 +260,20 @@ public class AdjacencyMatrix {
 		return route;
 	}
 	
+	/**
+	 * 
+	 * @param queue
+	 * @param edge
+	 * @return
+	 */
+	private boolean existsInQueue(Queue<LinkedEdge> queue, String edge) {
+		boolean ret = false;
+		for(LinkedEdge item : queue) {
+			if(item.id.equals(edge)){
+				ret = true;
+				break;
+			}
+		}
+		return ret;
+	}
 }
