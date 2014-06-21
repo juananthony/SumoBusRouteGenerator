@@ -1,4 +1,5 @@
 es/juanantoniojimenez/busroutegen/model/AdjacencyMatrix.class
-es/juanantoniojimenez/busroutegen/model/Connection.class
 es/juanantoniojimenez/busroutegen/model/Edge.class
+es/juanantoniojimenez/busroutegen/model/Connection.class
+es/juanantoniojimenez/busroutegen/model/AdjacencyMatrix$LinkedEdge.class
 es/juanantoniojimenez/busroutegen/BusRouteGen.class
