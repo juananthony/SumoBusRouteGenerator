@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import es.juanantoniojimenez.busroutegen.exception.SumoException;
 import es.juanantoniojimenez.busroutegen.out.TripInfoOutput;
+import es.juanantoniojimenez.busroutegen.util.Terminal;
 
 public class Simulation {
 	private HashMap<String, Edge> edges = new HashMap<String, Edge>();
@@ -60,7 +61,7 @@ public class Simulation {
 		cli += " -r " + tripFile;
 		cli += outputType + outputFile;
 		
-		executeCommand(cli);
+		Terminal.executeCommand(cli);
 
 		TripInfoOutput sim = new TripInfoOutput(outputFile);
 		
@@ -69,32 +70,6 @@ public class Simulation {
 		return retValue;
 	}
 	
-	/**
-	 * 
-	 * @param command
-	 * @return
-	 */
-	private String executeCommand(String command) {
-		 
-		StringBuffer output = new StringBuffer();
- 
-		Process p;
-		try {
-			p = Runtime.getRuntime().exec(command);
-//			p.waitFor();
-			BufferedReader reader =  new BufferedReader(new InputStreamReader(p.getInputStream()));
-			String line = "";			
-			while ((line = reader.readLine())!= null) {
-				output.append(line + "\n");
-			}
- 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
- 
-		return output.toString();
- 
-	}
 
 	/**
 	 * 

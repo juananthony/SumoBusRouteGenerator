@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 
 import es.juanantoniojimenez.busroutegen.model.AdjacencyMatrix;
 import es.juanantoniojimenez.busroutegen.model.Connection;
+import es.juanantoniojimenez.busroutegen.model.Scene;
 import es.juanantoniojimenez.busroutegen.model.Simulation;
 
 import java.io.File;
@@ -47,14 +48,15 @@ public class BusRouteGen {
 			
 			//System.out.println("Route: " + matrix.getRoute(fromEdge, toEdge));
 			
-			Simulation sim = new Simulation("/Users/juananthony/Desktop/castellana/castellana.net.xml", 
+			Scene scene = new Scene("/Users/juananthony/Desktop/castellana/castellana.net.xml", 
 					"/Users/juananthony/Desktop/castellana/bus/castellana.aditional.xml", 
 					"/Users/juananthony/Desktop/castellana/flow3/castellana.generated-trips.xml", 
 					"/Users/juananthony/Desktop/castellana/tripinfo.aux.out.xml",
 					" --tripinfo-output ");
-			sim.run();
 			
-			System.out.println("Score: " + sim.getScore());
+			scene.runAllSimulations();
+			
+			System.out.println("Score: " + scene.getMeanScore());
 
 		} catch (Exception e) {
 			e.printStackTrace();
