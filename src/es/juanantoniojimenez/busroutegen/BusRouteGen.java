@@ -53,6 +53,8 @@ public class BusRouteGen {
 					"/Users/juananthony/Desktop/castellana/tripinfo.aux.out.xml",
 					" --tripinfo-output ");
 			sim.run();
+			
+			System.out.println("Score: " + sim.getScore());
 
 		} catch (Exception e) {
 			e.printStackTrace();

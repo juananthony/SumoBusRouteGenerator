@@ -62,7 +62,7 @@ public class TripInfo {
 				depart = Double.parseDouble(elem[1].split("\"")[1]);
 			}
 			if(elem[0].equals("departLane")) {
-				depart = Double.parseDouble(elem[1].split("\"")[1]);
+				departLane = elem[1].split("\"")[1];
 			}
 			if(elem[0].equals("departPos")) {
 				departPos = Double.parseDouble(elem[1].split("\"")[1]);
@@ -104,7 +104,9 @@ public class TripInfo {
 				vType = elem[1].split("\"")[1];
 			}
 			if(elem[0].equals("vaporized")) {
-				vaporized = elem[1].split("\"")[1];
+				if(elem[1].split("\"").length > 0) {
+					vaporized = elem[1].split("\"")[1];
+				}
 			}
 		}
 	}

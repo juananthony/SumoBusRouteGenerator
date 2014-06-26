@@ -50,9 +50,9 @@ public class TripInfoOutput {
 				tripInfos.put(tripInfo.getId(), tripInfo);
 			}
 		} catch (SAXException e) {
-			throw new SumoException("ERROR: parsing xml. SAXException.");
+			throw new SumoException("ERROR: parsing xml. SAXException. \n => " + e.getMessage());
 		} catch (IOException e) {
-			throw new SumoException("ERROR: Error loading xml file. IOException.");
+			throw new SumoException("ERROR: Error loading xml file. IOException. \n => " + e.getMessage());
 		}
 		
 	}

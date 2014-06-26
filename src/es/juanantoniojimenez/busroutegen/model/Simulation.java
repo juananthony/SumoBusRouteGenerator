@@ -1,6 +1,11 @@
 package es.juanantoniojimenez.busroutegen.model;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import es.juanantoniojimenez.busroutegen.exception.SumoException;
@@ -23,6 +28,8 @@ public class Simulation {
 	
 	private String sumoGuiPath = "/Applications/sumo-0.20.0/bin/sumo-gui";
 	
+	private Double score;
+	
 	/**
 	 * Simulation constructor using map, additional, and out files.
 	 * 
@@ -39,25 +46,54 @@ public class Simulation {
 		this.outputType = outType;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * @throws SumoException
+	 */
 	public boolean run() throws SumoException {
 		boolean retValue = true;
-		Runtime rt = Runtime.getRuntime();
+
+		String cli = sumoPath;
+		cli += " -n " + mapFile;
+		cli += " -a " + additionalFile;
+		cli += " -r " + tripFile;
+		cli += outputType + outputFile;
 		
-		try {
-			String cli = sumoPath + " -n " + mapFile + " -a " + additionalFile + " -r " + tripFile + outputType + outputFile;
-			Process pr = rt.exec(cli);
-			pr.waitFor();
-			TripInfoOutput output = new TripInfoOutput(outputFile);
-			System.out.println("Mean Speed: " + output.getMeanSpeed());
-		} catch (IOException e) {
-			retValue = false;
-			throw new SumoException("ERROR: executing Sumo simulation");
-		} catch (InterruptedException e) {
-			retValue = false;
-			throw new SumoException("ERROR: Sumo Process was interrupted");
-		}
+		executeCommand(cli);
+
+		TripInfoOutput sim = new TripInfoOutput(outputFile);
+		
+		setScore(sim.getMeanSpeed());
 		
 		return retValue;
+	}
+	
+	/**
+	 * 
+	 * @param command
+	 * @return
+	 */
+	private String executeCommand(String command) {
+		 
+		StringBuffer output = new StringBuffer();
+ 
+		Process p;
+		try {
+			p = Runtime.getRuntime().exec(command);
+//			p.waitFor();
+			BufferedReader reader =  new BufferedReader(new InputStreamReader(p.getInputStream()));
+			String line = "";			
+			while ((line = reader.readLine())!= null) {
+				output.append(line + "\n");
+			}
+ 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+ 
+		return output.toString();
+ 
 	}
 
 	/**
@@ -154,5 +190,21 @@ public class Simulation {
 
 	public void setSumoGuiPath(String sumoGuiPath) {
 		this.sumoGuiPath = sumoGuiPath;
+	}
+
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
+	}
+
+	public String getTripFile() {
+		return tripFile;
+	}
+
+	public void setTripFile(String tripFile) {
+		this.tripFile = tripFile;
 	}
 }
