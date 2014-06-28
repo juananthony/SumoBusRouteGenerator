@@ -48,7 +48,7 @@ public class BusRouteGen {
 			
 			//System.out.println("Route: " + matrix.getRoute(fromEdge, toEdge));
 			
-			Scene scene = new Scene("/Users/juananthony/Desktop/castellana/castellana.net.xml", 
+			Scene scene = new Scene(1L, "/Users/juananthony/Desktop/castellana/castellana.net.xml", 
 					"/Users/juananthony/Desktop/castellana/bus/castellana.aditional.xml", 
 					"/Users/juananthony/Desktop/castellana/flow3/castellana.generated-trips.xml", 
 					"/Users/juananthony/Desktop/castellana/tripinfo.aux.out.xml",

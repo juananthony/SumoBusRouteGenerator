@@ -15,7 +15,7 @@ import es.juanantoniojimenez.busroutegen.util.Terminal;
  */
 public class Scene {
 	
-	private Long id = 1L;
+	private Integer id;
 
 	private ArrayList<Simulation> sims;
 	
@@ -39,7 +39,7 @@ public class Scene {
 	
 	private String sceneDir;
 	
-	private static String CREATE_SCENE_DIR_CMD = "mkdir ";
+	private static String MAKE_DIR_CMD = "mkdir ";
 	
 	/**
 	 * 
@@ -49,8 +49,8 @@ public class Scene {
 	 * @param outputFile
 	 * @param outputType
 	 */
-	public Scene(String mapFile, String addFile, String tripFile, String outFile, String outType) {
-		
+	public Scene(Integer id, String sceneDir, String mapFile, String addFile, String tripFile, String outFile, String outType) {
+		this.id = id;
 		this.mapFile = mapFile;
 		this.additionalFile = addFile;
 		this.tripFile = tripFile;
@@ -58,7 +58,8 @@ public class Scene {
 		setOutputFileRoot(outFile);
 		this.outputType = outType;
 		
-		setSceneDir(mapFile);
+		this.sceneDir = sceneDir;
+		Terminal.executeCommand(MAKE_DIR_CMD + sceneDir + "/out");
 				
 		createSimulations(numSimulations, mapFile, addFile, tripFile, outType);
 	}
@@ -73,55 +74,7 @@ public class Scene {
 	 * @param outFile
 	 * @param outType
 	 */
-	public Scene(int numSims, String mapFile, String addFile, String tripFile, String outFile, String outType) {
-		
-		this.mapFile = mapFile;
-		this.additionalFile = addFile;
-		this.tripFile = tripFile;
-		this.outputFile = outFile;
-		setOutputFileRoot(outFile);
-		this.outputType = outType;
-		numSimulations = numSims;
-		
-		setSceneDir(mapFile);
-		Terminal.executeCommand(CREATE_SCENE_DIR_CMD + sceneDir);
-		
-		createSimulations(numSimulations, mapFile, addFile, tripFile, outType);
-	}
-	
-	/**
-	 * 
-	 * @param mapFile
-	 * @param addFile
-	 * @param tripFile
-	 * @param outputFile
-	 * @param outputType
-	 */
-	public Scene(Long id, String mapFile, String addFile, String tripFile, String outFile, String outType) {
-		this.id = id;
-		this.mapFile = mapFile;
-		this.additionalFile = addFile;
-		this.tripFile = tripFile;
-		this.outputFile = outFile;
-		setOutputFileRoot(outFile);
-		this.outputType = outType;
-		
-		setSceneDir(mapFile);
-				
-		createSimulations(numSimulations, mapFile, addFile, tripFile, outType);
-	}
-	
-	
-	/**
-	 * 
-	 * @param numSims
-	 * @param mapFile
-	 * @param addFile
-	 * @param tripFile
-	 * @param outFile
-	 * @param outType
-	 */
-	public Scene(Long id, int numSims, String mapFile, String addFile, String tripFile, String outFile, String outType) {
+	public Scene(Integer id, String sceneDir, int numSims, String mapFile, String addFile, String tripFile, String outFile, String outType) {
 		this.id = id;
 		this.mapFile = mapFile;
 		this.additionalFile = addFile;
@@ -131,8 +84,8 @@ public class Scene {
 		this.outputType = outType;
 		numSimulations = numSims;
 		
-		setSceneDir(mapFile);
-		Terminal.executeCommand(CREATE_SCENE_DIR_CMD + sceneDir);
+		this.sceneDir = mapFile;
+		Terminal.executeCommand(MAKE_DIR_CMD + sceneDir + "/out");
 		
 		createSimulations(numSimulations, mapFile, addFile, tripFile, outType);
 	}
@@ -154,7 +107,7 @@ public class Scene {
 			sims.add(new Simulation(mapFile, 
 									addFile, 
 									tripFile, 
-									sceneDir + "/" + outputFileRoot + "." + String.format("%03d", i + 1) + ".xml", 
+									sceneDir + "/out/" + outputFileRoot + "." + String.format("%03d", i + 1) + ".xml", 
 									outType));
 		}
 	}
@@ -284,12 +237,13 @@ public class Scene {
 	 * @param outputFileRoot
 	 */
 	public void setOutputFileRoot(String outputFileRoot) {
+		String[] aux = outputFileRoot.split("/");
 		if(outputFileRoot.contains(".xml")) {
-			String[] aux = outputFileRoot.split("/");
 			this.outputFileRoot = aux[aux.length - 1].replace(".xml", "");
 		} else {
-			this.outputFileRoot = outputFileRoot;
+			this.outputFileRoot = aux[aux.length - 1];
 		}
+		this.outputFileRoot += "." + id;
 	}
 
 	/**
@@ -334,14 +288,39 @@ public class Scene {
 	}
 
 
+	/**
+	 * 
+	 * @param sceneDir
+	 */
 	public void setSceneDir(String sceneDir) {
-		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-		Calendar cal = Calendar.getInstance();
-		this.sceneDir = "";
-		String[] pathElems = sceneDir.split("/");
-		for (int i = 0; i < pathElems.length - 1; i++) {
-			this.sceneDir += pathElems[i] + "/";
-		}
-		this.sceneDir += "scene";
+		this.sceneDir = sceneDir;
+//		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+//		Calendar cal = Calendar.getInstance();
+//		this.sceneDir = "";
+//		String[] pathElems = sceneDir.split("/");
+//		for (int i = 0; i < pathElems.length - 1; i++) {
+//			this.sceneDir += pathElems[i] + "/";
+//		}
+//		this.sceneDir += "scene_" + id;
+	}
+
+
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public boolean isExecuted() {
+		return executed;
+	}
+
+
+	public void setExecuted(boolean executed) {
+		this.executed = executed;
 	}
 }
