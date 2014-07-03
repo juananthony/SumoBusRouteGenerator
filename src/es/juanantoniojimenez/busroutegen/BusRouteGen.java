@@ -22,7 +22,7 @@ public class BusRouteGen {
 	public static void main(String argv[]){
 		
 		try{
-//			File fXmlFile = new File("/Users/juananthony/Desktop/castellana/castellana.net.xml");
+//			File fXmlFile = new File("/Users/juananthony/Documents/Proyecto/castellana/castellana.net.xml");
 //			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 //			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 //			Document doc = dBuilder.parse(fXmlFile);
@@ -39,16 +39,16 @@ public class BusRouteGen {
 //			String fromEdge = "131751221#0";
 //			
 //			String toEdge = "118934456#1";
-				
-			//System.out.println(matrix.isConnected(fromEdge, toEdge));
-			
+//				
+//			//System.out.println(matrix.isConnected(fromEdge, toEdge));
+//			
 //			System.out.println(matrix.getEdgesConnected(fromEdge).toString());
-			
+//			
 //			System.out.println(matrix.toString());
+//			
+//			System.out.println("Route: " + matrix.getRoute(fromEdge, toEdge));
 			
-			//System.out.println("Route: " + matrix.getRoute(fromEdge, toEdge));
-			
-			Scene scene = new Scene(1, "/Users/juananthony/Desktop/castellana/", 
+			Scene scene = new Scene(1, "/Users/juananthony/Documents/Proyecto/castellana/scenePrueba", 
 					"/Users/juananthony/Desktop/castellana/castellana.net.xml", 
 					"/Users/juananthony/Desktop/castellana/bus/castellana.aditional.xml", 
 					"/Users/juananthony/Desktop/castellana/flow3/castellana.generated-trips.xml", 

@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import es.juanantoniojimenez.busroutegen.exception.SumoException;
 import es.juanantoniojimenez.busroutegen.out.TripInfoOutput;
+import es.juanantoniojimenez.busroutegen.util.SumoProperties;
 import es.juanantoniojimenez.busroutegen.util.Terminal;
 
 public class Simulation {
@@ -25,9 +26,9 @@ public class Simulation {
 	
 	private String outputType = " --tripinfo-output ";
 	
-	private String sumoPath = "/Applications/sumo-0.20.0/bin/sumo";
+	private String sumoPath;
 	
-	private String sumoGuiPath = "/Applications/sumo-0.20.0/bin/sumo-gui";
+	private String sumoGuiPath;
 	
 	private Double score;
 	
@@ -45,6 +46,9 @@ public class Simulation {
 		this.tripFile = tripFile;
 		this.outputFile = outFile;
 		this.outputType = outType;
+		
+		this.sumoPath = SumoProperties.get(this, "sumoPath");
+		this.sumoGuiPath = SumoProperties.get(this, "sumoGuiPath");
 	}
 	
 	/**
