@@ -47,8 +47,8 @@ public class Simulation {
 		this.outputFile = outFile;
 		this.outputType = outType;
 		
-		this.sumoPath = SumoProperties.get(this, "sumoPath");
-		this.sumoGuiPath = SumoProperties.get(this, "sumoGuiPath");
+		this.sumoPath = SumoProperties.get("sumoPath");
+		this.sumoGuiPath = SumoProperties.get("sumoGuiPath");
 	}
 	
 	/**
@@ -61,7 +61,9 @@ public class Simulation {
 
 		String cli = sumoPath;
 		cli += " -n " + mapFile;
-		cli += " -a " + additionalFile;
+		if (additionalFile == null || additionalFile.equals("")) {
+			cli += " -a " + additionalFile;
+		}
 		cli += " -r " + tripFile;
 		cli += outputType + outputFile;
 		

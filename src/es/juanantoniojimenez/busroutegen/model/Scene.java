@@ -43,11 +43,13 @@ public class Scene {
 	
 	/**
 	 * 
+	 * @param id
+	 * @param sceneDir
 	 * @param mapFile
 	 * @param addFile
 	 * @param tripFile
-	 * @param outputFile
-	 * @param outputType
+	 * @param outFile
+	 * @param outType
 	 */
 	public Scene(Integer id, String sceneDir, String mapFile, String addFile, String tripFile, String outFile, String outType) {
 		this.id = id;
@@ -67,6 +69,8 @@ public class Scene {
 	
 	/**
 	 * 
+	 * @param id
+	 * @param sceneDir
 	 * @param numSims
 	 * @param mapFile
 	 * @param addFile
@@ -84,7 +88,7 @@ public class Scene {
 		this.outputType = outType;
 		numSimulations = numSims;
 		
-		this.sceneDir = mapFile;
+		this.sceneDir = sceneDir;
 		Terminal.executeCommand(MAKE_DIR_CMD + sceneDir + "/out");
 		
 		createSimulations(numSimulations, mapFile, addFile, tripFile, outType);
@@ -93,6 +97,7 @@ public class Scene {
 	/**
 	 * Create Simulations ready to be executed.
 	 * 
+	 * @param numSims
 	 * @param mapFile
 	 * @param addFile
 	 * @param tripFile

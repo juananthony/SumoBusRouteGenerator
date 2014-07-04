@@ -18,13 +18,13 @@ public class SumoProperties {
 	 * @param key property's key
 	 * @return Value from properties file
 	 */
-	public static String get(Object classLoader, String key) {
+	public static String get(String key) {
 		Properties prop = new Properties();
 		InputStream input = null;
 		
 		String retValue = "";
 		try{
-			prop.load(classLoader.getClass().getClassLoader().getResourceAsStream("config.properties"));
+			prop.load(SumoProperties.class.getClassLoader().getResourceAsStream("config.properties"));
 			retValue = prop.getProperty(key);
 	 
 		} catch (IOException ex) {
